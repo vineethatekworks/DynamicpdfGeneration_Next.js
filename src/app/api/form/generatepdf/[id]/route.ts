@@ -4,8 +4,9 @@ import { prisma } from "@/lib/config/prisma";
 import { generateNominationPDF } from "@/lib/pdf/generatePdf";
 import { Nomination } from "@/types/nomination";
 import { createResponse } from "@/utils/responseHelper";
+import { NextRequest } from "next/server";
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   const authResult = await verifyToken(req);
   if (authResult instanceof Response) return authResult;
 

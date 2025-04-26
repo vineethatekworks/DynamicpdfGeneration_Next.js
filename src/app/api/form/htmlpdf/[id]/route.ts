@@ -4,8 +4,9 @@ import { prisma } from '@/lib/config/prisma';
 import { generatePdf } from '@/lib/pdf/generatepdfhtml';
 import { Nomination } from '@/types/nomination';
 import { createResponse } from '@/utils/responseHelper';
+import { NextRequest } from 'next/server';
 
-export async function GET(req: Request, context: { params: { id: string } }) {
+export async function GET(req: NextRequest, context: { params: { id: string } }) {
    
   
     try {

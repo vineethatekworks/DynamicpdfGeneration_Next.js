@@ -1,9 +1,10 @@
 import { verifyToken } from "@/auth/verifyToken";
 import { prisma } from "@/lib/config/prisma";
 import { createResponse } from "@/utils/responseHelper";
+import { NextRequest } from "next/server";
 
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     const authResult = await verifyToken(req);
     if (authResult instanceof Response) return authResult;

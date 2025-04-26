@@ -3,11 +3,11 @@ import { getPDFFromS3 } from "@/lib/config/AwsS3Config";
 import { sendMailWithPDF } from "@/lib/config/mailconfig";
 import { prisma } from "@/lib/config/prisma";
 import { createResponse } from "@/utils/responseHelper";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 
 
-export async function POST(req: Request, context: { params: Promise<{ id: string }> }) {
+export async function POST(req: NextRequest, context: { params: Promise<{ id: string }> }) {
     try {
         const authResult= await verifyToken(req);
         if (authResult instanceof Response) return authResult;

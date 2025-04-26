@@ -2,8 +2,9 @@ import { verifyToken } from "@/auth/verifyToken";
 import { prisma } from "@/lib/config/prisma";
 import { step1Schema } from "@/types/nomination";
 import { createResponse } from "@/utils/responseHelper";
+import { NextRequest } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     const authResult = await verifyToken(req);
     if (authResult instanceof Response) return authResult;
 

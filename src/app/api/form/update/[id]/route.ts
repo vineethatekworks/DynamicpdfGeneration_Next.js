@@ -4,10 +4,11 @@ import { verifyToken } from "@/auth/verifyToken";
 import { prisma } from "@/lib/config/prisma";
 import { step2Schema } from "@/types/nomination";
 import { createResponse } from "@/utils/responseHelper";
+import { NextRequest } from "next/server";
 
 
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
     try {
         const authResult = await verifyToken(req);
         if (authResult instanceof Response) return authResult;
