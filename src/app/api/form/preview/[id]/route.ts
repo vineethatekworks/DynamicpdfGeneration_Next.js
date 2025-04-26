@@ -1,12 +1,13 @@
-import { verifyToken } from "../../../../../auth/verifyToken.ts";
-import { prisma } from "../../../../../lib/dbconfig/prisma.ts";
-import { createResponse } from "../../../../../utils/responseHelper.ts";
+import { verifyToken } from "@/auth/verifyToken";
+import { prisma } from "@/lib/dbconfig/prisma";
+import { createResponse } from "@/utils/responseHelper";
+
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
+  try {
   const authResult = await verifyToken(req);
   if (authResult instanceof Response) return authResult;
 
-  try {
     const nomination = await prisma.nomination.findFirst({
       where: { id: params.id },
     });

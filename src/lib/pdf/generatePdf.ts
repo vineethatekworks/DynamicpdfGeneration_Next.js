@@ -1,17 +1,16 @@
+// deno-lint-ignore-file
+
+import { Nomination_valid } from "@/types/nomination";
 import fs from "node:fs";
-import { Nomination_valid } from "../../types/nomination.ts";
-const { PDFDocument } = require("pdf-lib");
+import { PDFDocument } from "pdf-lib";
 export async function generateNominationPDF(nomination: Nomination_valid): Promise<Uint8Array> {
   try {
     // Load the template PDF
-    const templateBytes = fs.readFileSync("multiformpdftemplate.pdf");
+    const templateBytes = fs.readFileSync("multiformpdftemplate (1).pdf");
     console.log(templateBytes);
     const pdfDoc = await PDFDocument.load(templateBytes);
-    console.log("pdfDoc",pdfDoc);
     const form = pdfDoc.getForm();
-
-    console.log("form",form);
-    // Log the form field names to debug
+    
     const fields = form.getFields();
     console.log("Fields:", fields);
     fields.forEach((field: { getName: () => any; }) => {
@@ -21,14 +20,15 @@ export async function generateNominationPDF(nomination: Nomination_valid): Promi
 
     // Make sure the field names below match the actual field names in the PDF template
     form.getTextField("Text1").setText(nomination.name);
-    form.getTextField("fatherName").setText(nomination.fatherName);
-    form.getTextField("age").setText(nomination.age.toString());
-    form.getTextField("email").setText(nomination.email);
-    form.getTextField("designation").setText(nomination.designation);
-    form.getTextField("residentialAddr").setText(nomination.residentialAddr);
-    form.getTextField("postalAddr").setText(nomination.postalAddr);
-    form.getTextField("phoneNumber").setText(nomination.phoneNumber);
-    form.getTextField("aadhaarNumber").setText(nomination.aadhaarNumber);
+    form.getTextField("Text2").setText(nomination.fatherName);
+    form.getTextField("Text3").setText(nomination.name);
+    form.getTextField("Text4").setText(nomination.fatherName);
+    form.getTextField("Text5").setText(nomination.age.toString());
+    form.getTextField("Text6").setText(nomination.designation);
+    form.getTextField("Text7").setText(nomination.residentialAddr);
+    form.getTextField("Text8").setText(nomination.postalAddr);
+    form.getTextField("Text9").setText(nomination.phoneNumber);
+    form.getTextField("Text10").setText(nomination.aadhaarNumber);
 
     // Save the modified PDF
     const pdfBytes = await pdfDoc.save();

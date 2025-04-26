@@ -1,37 +1,34 @@
-// deno-lint-ignore-file
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
 import bcrypt from "bcrypt";
-import { createResponse } from "../../../../utils/responseHelper.ts";
-const prisma = new PrismaClient();
-export async function POST(req: NextRequest , res: NextResponse) {
-    try{
-        const data = await req.json();
-        const {username, useremail, userpassword} = data;
+import { prisma } from "@/lib/dbconfig/prisma";
+import { createResponse } from "@/utils/responseHelper";
 
-        const userExists = await prisma.user.findUnique({where: {useremail: useremail}});
+
+export async function POST(req: NextRequest, res: NextResponse) {
+    try {
+        const data = await req.json();
+        const { username, useremail, userpassword } = data;
+
+        const userExists = await prisma.user.findUnique({ where: { useremail: useremail } });
         if (userExists) {
             return createResponse("User already exists", 400);
         }
 
-         //hash password
-         const hashedPassword = await bcrypt.hash(userpassword,10);
+        //hash password
+        const hashedPassword = await bcrypt.hash(userpassword, 10);
 
-         //create user
-         const newUser = await prisma.user.create({
-             data:{
-                 username,
-                 useremail,
-                 userpassword:hashedPassword}
-         });
-         return createResponse("User registered successfully", 200);
+        //create user
+        const newUser = await prisma.user.create({
+            data: {
+                username,
+                useremail,
+                userpassword: hashedPassword
+            }
+        });
+        return createResponse("User registered successfully", 200);
     }
-    catch(error){
+    catch (error) {
         console.log(error);
         return createResponse("Something went wrong", 500);
     }
-    }
+}

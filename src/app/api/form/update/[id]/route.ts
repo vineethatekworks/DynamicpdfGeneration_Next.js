@@ -1,10 +1,11 @@
 // deno-lint-ignore-file
 
+import { verifyToken } from "@/auth/verifyToken";
+import { prisma } from "@/lib/dbconfig/prisma";
+import { step2Schema } from "@/types/nomination";
+import { createResponse } from "@/utils/responseHelper";
 
-import { verifyToken } from "../../../../../auth/verifyToken.ts";
-import { prisma } from "../../../../../lib/dbconfig/prisma.ts";
-import { step2Schema } from "../../../../../types/nomination.ts";
-import { createResponse } from "../../../../../utils/responseHelper.ts";
+
 
 export async function PUT(req: Request, { params }: { params: { id: string } }) {
 
@@ -43,7 +44,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
                 },
             });
 
-        return createResponse("Nomination updated successfully u can preview or generate pdf now", 200, {nominationid:updatedNomination.id});
+        return createResponse("Nomination updated successfully u can preview or generate pdf now", 200, { nominationid: updatedNomination.id });
 
     } catch (error) {
         console.error("[UPDATE ERROR]", error);

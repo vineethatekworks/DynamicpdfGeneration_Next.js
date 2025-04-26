@@ -1,8 +1,9 @@
-import { verifyToken } from "../../../../../auth/verifyToken.ts";
-import { prisma } from "../../../../../lib/dbconfig/prisma.ts";
-import { generateNominationPDF } from "../../../../../lib/pdf/generatePdf.ts";
-import { Nomination } from "../../../../../types/nomination.ts";
-import { createResponse } from "../../../../../utils/responseHelper.ts";
+import { verifyToken } from "@/auth/verifyToken";
+import { prisma } from "@/lib/dbconfig/prisma";
+import { generateNominationPDF } from "@/lib/pdf/generatePdf";
+import { Nomination } from "@/types/nomination";
+import { createResponse } from "@/utils/responseHelper";
+
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   const authResult = await verifyToken(req);
@@ -23,7 +24,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     return createResponse("Validation Error", 400, validated_nomination_data.error.errors.map((e) => e.message).join(", "));
   }
 
-  const pdfBytes = await generateNominationPDF(nomination);
+  const pdfBytes = await generateNominationPDF(validated_nomination_data.data);
 
   return new Response(pdfBytes, {
     status: 200,

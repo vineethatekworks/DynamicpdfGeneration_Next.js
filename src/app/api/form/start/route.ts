@@ -1,7 +1,7 @@
-import { verifyToken } from "../../../../auth/verifyToken.ts";
-import { prisma } from "../../../../lib/dbconfig/prisma.ts";
-import { step1Schema } from "../../../../types/nomination.ts";
-import { createResponse } from "../../../../utils/responseHelper.ts";
+import { verifyToken } from "@/auth/verifyToken";
+import { prisma } from "@/lib/dbconfig/prisma";
+import { step1Schema } from "@/types/nomination";
+import { createResponse } from "@/utils/responseHelper";
 
 
 export async function POST(req: Request) {
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
 
 
     if (!validated_data.success) {
-        return createResponse("Validation Error",400,validated_data.error.errors.map((e) => e.message).join(", "));   
+        return createResponse("Validation Error", 400, validated_data.error.errors.map((e) => e.message).join(", "));
     }
     const { name, fatherName, age, email } = validated_data.data;
 
@@ -34,5 +34,5 @@ export async function POST(req: Request) {
         },
     });
 
-    return createResponse("Fill the next feilds to complete nomination", 201, {nominationid: nomination.id});
+    return createResponse("Fill the next feilds to complete nomination", 201, { nominationid: nomination.id });
 }

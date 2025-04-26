@@ -1,12 +1,9 @@
-// deno-lint-ignore-file
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { NextRequest, NextResponse } from "next/server.js";
+import { prisma } from "@/lib/dbconfig/prisma";
+import { createResponse } from "@/utils/responseHelper";
+import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { prisma } from "../../../../lib/dbconfig/prisma.ts";
-import { createResponse } from "../../../../utils/responseHelper.ts";
+
 
 export async function POST(req: NextRequest, _res: NextResponse) {
     try {
@@ -24,9 +21,9 @@ export async function POST(req: NextRequest, _res: NextResponse) {
         }
 
         const tokendata = { userId: user.id, email: user.useremail };
-        const token = jwt.sign(tokendata, process.env.TOKEN_SECRET || "secret", {expiresIn: "1h",});
+        const token = jwt.sign(tokendata, process.env.TOKEN_SECRET || "secret", { expiresIn: "1h", });
 
-        const response = NextResponse.json({ message: "User logged in successfully" ,user:user,token:token}, { status: 200 } as any);
+        const response = NextResponse.json({ message: "User logged in successfully", user: user, token: token }, { status: 200 } as any);
         response.cookies.set("token", token, { httpOnly: true, secure: true });
         return response;
     }

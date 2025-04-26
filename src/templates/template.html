@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <style>
+      body {
+        font-family: 'Times New Roman', serif;
+        margin: 0;
+        padding: 40px;
+        background-color: #f9f9f9;
+      }
+      .container {
+        padding: 30px;
+        max-width: 800px;
+        margin: auto;
+        background-color: white;
+        border: 20px solid #2e7d32; /* Green border applied only to the form container */
+      }
+      h2 {
+        text-align: center;
+        text-decoration: underline;
+      }
+      .content {
+        margin-top: 20px;
+      }
+      .details {
+        margin-top: 20px;
+      }
+      .details p {
+        margin: 6px 0;
+      }
+      .bold {
+        font-weight: bold;
+      }
+      .signature {
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Nomination Form</h2>
+
+      <div class="content">
+        <p>Certified that I/We have nominated Sri <span class="bold">{{name}}</span></p>
+        <p>S/o <span class="bold">{{fatherName}}</span> as a person responsible for the conduct of our organization.</p>
+        <p>He will represent our organization in case of any legal requirement. In case the designated person leaves the organization, I hereby admit that I will be responsible for any obligations.</p>
+      </div>
+
+      <div class="details">
+        <p>1. <span class="bold">Name of the person</span> : {{name}}</p>
+        <p>2. <span class="bold">Father’s name</span> : {{fatherName}}</p>
+        <p>3. <span class="bold">Age</span> : {{age}}</p>
+        <p>4. <span class="bold">Designation</span> : {{designation}}</p>
+        <p>5. <span class="bold">Residential address</span> : {{address}}</p>
+        <p>6. <span class="bold">Postal address</span> : {{postalAddress}}</p>
+        <p>7. <span class="bold">Phone number</span> : {{phoneNumber}}</p>
+        <p>8. <span class="bold">Aadhaar number</span> : {{aadhaarNumber}}</p>
+      </div>
+
+      <div class="signature">
+        <p class="bold">I hereby accept the above nomination as required,</p>
+        <br />
+        <p>Signature of Person Nominated</p>
+        <br /><br />
+        <p>Authorized Signatory</p>
+      </div>
+    </div>
+  </body>
+</html>
