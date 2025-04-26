@@ -1,36 +1,32 @@
 // deno-lint-ignore-file
 
 import { verifyToken } from "@/auth/verifyToken";
-import { prisma } from "@/lib/dbconfig/prisma";
+import { prisma } from "@/lib/config/prisma";
 import { step2Schema } from "@/types/nomination";
 import { createResponse } from "@/utils/responseHelper";
 
 
 
 export async function PUT(req: Request, { params }: { params: { id: string } }) {
-
-    const authResult = await verifyToken(req);
-    if (authResult instanceof Response) return authResult;
-
-    const nominationid = params.id;
-
-    let data;
     try {
+        const authResult = await verifyToken(req);
+        if (authResult instanceof Response) return authResult;
+
+        const nominationid = params.id;
+
+        let data;
+
         data = await req.json();
-    } catch {
-        return createResponse("Invalid JSON", 400);
-    }
 
-    // Validate input using Zod
-    const validated_data = step2Schema.safeParse(data);
+        // Validate input using Zod
+        const validated_data = step2Schema.safeParse(data);
 
-    if (!validated_data.success) {
-        return createResponse("Validation Error", 400, validated_data.error.errors.map((e) => e.message).join(", "));
-    }
+        if (!validated_data.success) {
+            return createResponse("Validation Error", 400, validated_data.error.errors.map((e) => e.message).join(", "));
+        }
 
-    const { designation, residentialAddr, postalAddr, phoneNumber, aadhaarNumber } = validated_data.data;
+        const { designation, residentialAddr, postalAddr, phoneNumber, aadhaarNumber } = validated_data.data;
 
-    try {
         const updatedNomination = await prisma
             .nomination
             .update({
