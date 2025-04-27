@@ -22,6 +22,7 @@
     "puppeteer": "^24.7.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "swagger-ui-react": "^5.21.0",
     "uuid": "^11.1.0",
     "zod": "^3.24.3"
   },
@@ -33,6 +34,7 @@
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "next-swagger-doc": "^0.4.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

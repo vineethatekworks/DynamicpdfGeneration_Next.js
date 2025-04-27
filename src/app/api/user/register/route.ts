@@ -3,6 +3,62 @@ import bcrypt from "bcrypt";
 import { prisma } from "@/lib/config/prisma";
 import { createResponse } from "@/utils/responseHelper";
 
+/**
+ * @swagger
+ * /api/user/register:
+ *   post:
+ *     summary: User Registration
+ *     description: Registers a new user by creating an account with username, email, and password.
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               useremail:
+ *                 type: string
+ *                 format: email
+ *               userpassword:
+ *                 type: string
+ *                 format: password
+ *             required:
+ *               - username
+ *               - useremail
+ *               - userpassword
+ *     responses:
+ *       200:
+ *         description: User registered successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       400:
+ *         description: User already exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
@@ -14,10 +70,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
             return createResponse("User already exists", 400);
         }
 
-        //hash password
         const hashedPassword = await bcrypt.hash(userpassword, 10);
 
-        //create user
         const newUser = await prisma.user.create({
             data: {
                 username,

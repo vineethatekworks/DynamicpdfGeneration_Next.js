@@ -6,6 +6,73 @@ import { Nomination } from "@/types/nomination";
 import { createResponse } from "@/utils/responseHelper";
 import { NextRequest } from "next/server";
 
+/**
+ * @swagger
+ * /api/form/generatepdf/{id}:
+ *   get:
+ *     summary: Generate and download Nomination PDF
+ *     description: Fetch a nomination by ID, validate it, generate a PDF, upload to S3, and return the PDF for download.
+ *     tags:
+ *       - Nomination
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the nomination
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Successfully generated and downloaded PDF
+ *         content:
+ *           application/pdf:
+ *             schema:
+ *               type: string
+ *               format: binary
+ *       400:
+ *         description: Validation error in nomination data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: string
+ *       401:
+ *         description: Unauthorized - invalid or missing token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: Nomination not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 error:
+ *                   type: object
+ *     security:
+ *       - bearerAuth: []
+ */
+
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   const authResult = await verifyToken(req);
   if (authResult instanceof Response) return authResult;
