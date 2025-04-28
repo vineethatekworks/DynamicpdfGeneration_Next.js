@@ -12,7 +12,7 @@ export const getAPIDOCS = async () => {
                 version: '1.0.0',
                 description: 'Documentation for Nomination Form API',
             },
-            components: ['src/app/api/**/*.ts'],
+            components:{
             securitySchemes: {
                 bearerAuth: {
                     type: 'http',
@@ -22,6 +22,7 @@ export const getAPIDOCS = async () => {
             },
         },
         security: [],
+    }
     });
 
     return spec;

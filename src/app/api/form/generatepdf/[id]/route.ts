@@ -73,6 +73,7 @@ import { NextRequest } from "next/server";
  *       - bearerAuth: []
  */
 
+
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   const authResult = await verifyToken(req);
   if (authResult instanceof Response) return authResult;

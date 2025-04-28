@@ -8,8 +8,8 @@ import jwt from "jsonwebtoken";
  * @swagger
  * /api/user/login:
  *   post:
- *     summary: User Login
- *     description: Authenticates a user using email and password, and returns a JWT token if successful.
+ *     summary: User login
+ *     description: Logs in a user by verifying their email and password.
  *     tags:
  *       - Authentication
  *     requestBody:
@@ -40,25 +40,19 @@ import jwt from "jsonwebtoken";
  *                   type: string
  *                 user:
  *                   type: object
- *                   properties:
- *                     id:
- *                       type: string
- *                     useremail:
- *                       type: string
- *                     (other user fields if you want)
  *                 token:
  *                   type: string
  *       400:
- *         description: User not found or Invalid password
+ *         description: User not found or invalid password
  *         content:
  *           application/json:
- *             schema:
+ *             schema:     
  *               type: object
  *               properties:
  *                 message:
  *                   type: string
  *       500:
- *         description: Server error
+ *         description: Internal server error
  *         content:
  *           application/json:
  *             schema:
@@ -67,7 +61,6 @@ import jwt from "jsonwebtoken";
  *                 message:
  *                   type: string
  */
-
 export async function POST(req: NextRequest, _res: NextResponse) {
     try {
         const data = await req.json();
