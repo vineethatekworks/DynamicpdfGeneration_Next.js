@@ -90,8 +90,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         const authResult = await verifyToken(req);
         if (authResult instanceof Response) return authResult;
 
-        // const nominationid = params.id;
-        const { id: nominationid } = await params;
+        const { id: nominationid } =  params;
         
         const data = await req.json();
 

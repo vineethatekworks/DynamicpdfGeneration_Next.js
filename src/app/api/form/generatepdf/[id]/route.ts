@@ -5,6 +5,7 @@ import { generateNominationPDF } from "@/lib/pdf/generatePdf";
 import { Nomination } from "@/types/nomination";
 import { createResponse } from "@/utils/responseHelper";
 import { NextRequest } from "next/server";
+import { Buffer } from 'buffer';
 
 /**
  * @swagger

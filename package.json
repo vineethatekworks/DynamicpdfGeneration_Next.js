@@ -34,6 +34,7 @@
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/swagger-ui-react": "^5.18.0",
     "next-swagger-doc": "^0.4.1",
     "tailwindcss": "^4",
     "typescript": "^5"

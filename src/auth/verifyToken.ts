@@ -10,7 +10,7 @@ export async function verifyToken(req: Request) {
     }
 
     const token = authHeader.split(" ")[1];
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || "secret");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET ?? "secret");
     console.log("decoded", decoded);
 
     if (!decoded) { 
